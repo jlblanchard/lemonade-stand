@@ -11,8 +11,8 @@ using api.Models;
 namespace api.Migrations
 {
     [DbContext(typeof(LemonadeContext))]
-    [Migration("20221004022009_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221005011919_CreateOrderTables")]
+    partial class CreateOrderTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,57 @@ namespace api.Migrations
                     b.ToTable("Lemonades");
                 });
 
+            modelBuilder.Entity("api.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("api.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("LemonadeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderItem");
+                });
+
             modelBuilder.Entity("api.Models.Size", b =>
                 {
                     b.Property<int>("Id")
@@ -54,7 +105,8 @@ namespace api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Description")
+                    b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

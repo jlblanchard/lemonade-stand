@@ -11,8 +11,8 @@ using api.Models;
 namespace api.Migrations
 {
     [DbContext(typeof(LemonadeContext))]
-    [Migration("20221004022009_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221004213702_SeedLemonadeData")]
+    partial class SeedLemonadeData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,7 +54,8 @@ namespace api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Description")
+                    b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

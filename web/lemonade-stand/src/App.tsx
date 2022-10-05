@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import logo from './images/logo.png';
 import './App.css';
+import { LemonadeService } from './http/lemonadeService';
+import lemonade from './types/lemonade';
+import Order from './components/order';
 
 function App() {
+  const [items, setItems] = useState<lemonade[]>([]);
+
+  useEffect(() => {
+    const service = new LemonadeService();
+    service.getLemonades().then(lemonades => {
+      setItems(lemonades);
+    });
+    
+  },[]);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <img src={logo} alt="logo" />
       </header>
+      <Order items={items} />
     </div>
   );
 }

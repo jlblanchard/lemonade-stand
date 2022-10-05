@@ -11,8 +11,8 @@ using api.Models;
 namespace api.Migrations
 {
     [DbContext(typeof(LemonadeContext))]
-    [Migration("20221004022009_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221004205014_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,11 +55,11 @@ namespace api.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Size");
+                    b.ToTable("Sizes");
                 });
 
             modelBuilder.Entity("api.Models.Type", b =>
@@ -76,7 +76,7 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Type");
+                    b.ToTable("Types");
                 });
 
             modelBuilder.Entity("api.Models.Lemonade", b =>

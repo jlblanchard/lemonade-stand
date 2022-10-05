@@ -14,7 +14,7 @@ namespace api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<int>(type: "int", nullable: false)
+                    Description = table.Column<int>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
